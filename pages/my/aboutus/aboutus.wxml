@@ -1,0 +1,12 @@
+<text class="desc">
+	《大学生旅行》是一款组队旅行产品
+   
+   由Eureka团队开发并维护
+</text>
+<image mode="widthFix" src="/static/images/smart.png"></image>
+<view class="copyright">
+    <text>Eureka 团队</text>
+    <view>
+        <text>Copyright @ {{year}} All Rights Reserved</text>
+    </view>
+</view>

@@ -1,0 +1,22 @@
+<view class="container">
+    <view class="remind-box" wx:if="{{remind}}">
+        <image class="remind-img" src="/static/images/more/loading.gif"></image>
+    </view>
+    <block wx:else>
+        <image class="title" src="/static/images/more/title8.png"></image>
+        <view class="content">
+            <view class="hd" style="transform:rotateZ({{angle}}deg);">
+                <image class="logo" src="{{userInfo.avatarUrl}}"></image>
+                <image class="wave" mode="aspectFill" src="/static/images/more/wave.png"></image>
+                <image class="wave wave-bg" mode="aspectFill" src="/static/images/more/wave.png"></image>
+            </view>
+            <view class="bd">
+                <image class="smalltitle" src="/static/images/more/confirm-word1.png"></image>
+                <view bindtap="goToIndex" class="confirm-btn">
+                    <text>立即体验</text>
+                </view>
+                <text class="copyright">© 2018 大学生旅行 EUREKA团队版权所有</text>
+            </view>
+        </view>
+    </block>
+</view>

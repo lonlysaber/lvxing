@@ -1,10 +1,10 @@
-function t(t) {
+function t(t) {//按类型搜帖
     var e = "";
     return 1 == t ? e = "旅行" : 2 == t ? e = "游戏" : 3 == t ? e = "电影" : 4 == t ? e = "音乐" : 5 == t ? e = "读书" : 6 == t ? e = "竞赛" : 7 == t ? e = "运动" : 8 == t ? e = "其他" : 9 == t && (e = "公告"), 
     e;
 }
 
-require("../../utils/common.js");
+require("../../utils/common.js");//导入工具包获取微信登陆的用户的信息进入初始界面
 
 var e = require("../../utils/bmob.js"), i = require("../../utils/util.js"), a = getApp(), n = 0, s = wx.getStorageSync("my_nick"), o = wx.getStorageSync("my_sex"), c = wx.getStorageSync("my_avatar");
 
@@ -35,25 +35,25 @@ Page({
         windowHeight1: 0,
         windowWidth1: 0
     },
-    onSwiperChange: function(t) {
+    onSwiperChange: function(t) {//右拉界面
         n = t.detail.current, this.changeCurIndex();
     },
-    changeCurIndex: function() {
+    changeCurIndex: function() {//切换界面
         this.setData({
             curIndex: n
         });
     },
-    onHide: function() {
+    onHide: function() {//页面隐藏切入后台
         this.setData({
             autoplay: !1
         });
     },
-    gotoMap: function() {
+    gotoMap: function() {//定位显示地图功能
         this.buttonClicked || (i.buttonClicked(this), wx.navigateTo({
             url: "/pages/showinmap/showinmap"
         }));
     },
-    onLoad: function(t) {
+    onLoad: function(t) {//页面回调加载时触发
         try {
             var e = wx.getSystemInfoSync();
             this.windowWidth = e.windowWidth, this.data.ui.menuWidth = .82 * this.windowWidth, 
@@ -62,7 +62,7 @@ Page({
             });
         } catch (t) {}
     },
-    onShow: function(t) {
+    onShow: function(t) { //页面显示/切入前台触发
         var e = this;
         this.getAll(), this.fetchTopThreePosts(), console.log("加载头像");
         var i = this;

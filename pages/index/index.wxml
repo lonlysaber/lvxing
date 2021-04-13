@@ -103,10 +103,10 @@
                 <image class="itemself_ico" src="/static/images/icon/status.png"></image>
                 <span>我的收藏</span>
             </view>
-            <view bindtap="click_projectBrief" class="itemself" data-index="4">
+            <!-- <view bindtap="click_projectBrief" class="itemself" data-index="4"> -
                 <image class="itemself_ico" src="/static/images/icon/specialty.png"></image>
                 <span>项目简介</span>
-            </view>
+            </view> -->
             <view bindtap="click_Tick" class="itemself" data-index="5">
                 <image class="itemself_ico" src="/static/images/icon/tick2.png "></image>
                 <span>反馈建议</span>

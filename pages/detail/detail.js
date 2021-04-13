@@ -9,8 +9,20 @@ function t(e) {
     t;
 }
 
-var n, a, o, s, i, c, r, u, l = require("../../components/wux"), d = require("../template/getCode.js"), g = require("../../utils/bmob.js"), f = require("../../utils/util.js"), v = (getApp(), 
-void 0);
+var n;
+var a;
+var o;
+var s;
+var i;
+var c;
+var r;
+var u;
+import { $wuxButton } from "../../components/wux";
+import { showTip, dataLoading, dataLoadin } from "../template/getCode.js";
+import { generateCode, Query, User, Object, sendMessage } from "../../utils/bmob.js";
+import { getDateDiff } from "../../utils/util.js";
+var v = (getApp(),
+    void 0);
 
 Page({
     data: {
@@ -53,7 +65,7 @@ Page({
     },
     showQrcode: function() {
         var e = "/pages/detail/detail?actid=" + a + "&pubid=" + o, t = this;
-        g.generateCode({
+        generateCode({
             path: e,
             width: 40
         }).then(function(e) {
@@ -62,7 +74,7 @@ Page({
                 codeHehe: !0
             });
         }, function(e) {
-            d.showTip("生成二维码失败" + e);
+            showTip("生成二维码失败" + e);
         });
     },
     closeCode: function() {
@@ -115,7 +127,7 @@ Page({
         wx.setClipboardData({
             data: t,
             success: function() {
-                d.dataLoading("复制成功", "success"), console.log("复制成功");
+                dataLoading("复制成功", "success"), console.log("复制成功");
             }
         });
     },
@@ -151,7 +163,7 @@ Page({
                 success: function(o) {
                     if (o.data) {
                         if (clearInterval(e), 0 == n.data.isMe) {
-                            var s = new g.Query(g.User);
+                            var s = new Query(User);
                             s.equalTo("objectId", o.data), s.find({
                                 success: function(e) {
                                     var t = e[0].get("eventFavo"), o = e[0].get("eventJoin"), s = !1, i = !1;
@@ -178,10 +190,10 @@ Page({
                                 }
                             });
                         }
-                        var i = g.Object.extend("Events"), c = new g.Query(i);
+                        var i = Object.extend("Events"), c = new Query(i);
                         c.equalTo("objectId", a), c.include("publisher"), c.find({
                             success: function(e) {
-                                var a, s, i = e[0].get("title"), c = e[0].get("content"), r = e[0].get("publisher"), u = e[0].get("acttype"), l = t(u), d = e[0].get("isShow"), g = e[0].get("endtime"), v = e[0].createdAt, m = f.getDateDiff(v), p = e[0].get("address"), h = e[0].get("longitude"), w = e[0].get("latitude"), b = e[0].get("peoplenum"), y = e[0].get("joinnumber"), x = e[0].get("likenum"), T = e[0].get("liker"), D = e[0].get("commentnum"), j = r.nickname, k = r.id;
+                                var a, s, i = e[0].get("title"), c = e[0].get("content"), r = e[0].get("publisher"), u = e[0].get("acttype"), l = t(u), d = e[0].get("isShow"), g = e[0].get("endtime"), v = e[0].createdAt, m = getDateDiff(v), p = e[0].get("address"), h = e[0].get("longitude"), w = e[0].get("latitude"), b = e[0].get("peoplenum"), y = e[0].get("joinnumber"), x = e[0].get("likenum"), T = e[0].get("liker"), D = e[0].get("commentnum"), j = r.nickname, k = r.id;
                                 a = r.userPic ? r.userPic : "/static/images/icon/user_defaulthead@2x.png", s = e[0].get("actpic") ? e[0].get("actpic")._url : "http://bmob-cdn-14867.b0.upaiyun.com/2017/12/01/89a6eba340008dce801381c4550787e4.png", 
                                 r.id == o.data && n.setData({
                                     isMine: !0
@@ -229,7 +241,7 @@ Page({
         }, 500);
     },
     eventMore: function(e) {
-        var t = g.Object.extend("EventMore"), a = new g.Query(t);
+        var t = Object.extend("EventMore"), a = new Query(t);
         a.equalTo("event", e), a.find({
             success: function(e) {
                 var t = e[0].id;
@@ -248,12 +260,12 @@ Page({
     commentQuery: function(e) {
         var t = this;
         c = new Array();
-        var a = g.Object.extend("Comments"), o = new g.Query(a);
+        var a = Object.extend("Comments"), o = new Query(a);
         o.equalTo("event", e), o.limit(t.data.comPage), o.skip(t.data.comPage * t.data.comCurPage), 
         o.descending("createAt"), o.include("publisher"), o.find({
             success: function(e) {
                 for (var t = 0; t < e.length; t++) {
-                    var a, o = e[t].id, s = e[t].get("olderComment"), i = e[t].get("publisher").objectId, r = e[t].get("content"), u = e[t].createdAt, l = f.getDateDiff(u), d = e[t].get("publisher").userPic, g = e[t].get("publisher").nickname;
+                    var a, o = e[t].id, s = e[t].get("olderComment"), i = e[t].get("publisher").objectId, r = e[t].get("content"), u = e[t].createdAt, l = getDateDiff(u), d = e[t].get("publisher").userPic, g = e[t].get("publisher").nickname;
                     s ? (s = s.id, a = e[t].get("olderUserName")) : (s = 0, a = "");
                     var v;
                     v = {
@@ -272,13 +284,13 @@ Page({
                 }
             },
             error: function(e) {
-                d.dataLoadin(e, "loading"), console.log(e);
+                dataLoadin(e, "loading"), console.log(e);
             }
         });
     },
     joinDetail: function(t) {
         r = new Array();
-        var a = g.Object.extend("Contacts"), o = new g.Query(a);
+        var a = Object.extend("Contacts"), o = new Query(a);
         o.equalTo("event", t), o.include("currentUser"), o.include("publisher"), o.descending("createAt"), 
         o.find({
             success: function(t) {
@@ -317,7 +329,7 @@ Page({
                             joinuserpic: y,
                             contactWay: h,
                             contactValue: w,
-                            jointime: f.getDateDiff(x),
+                            jointime: getDateDiff(x),
                             linkjoinHe: !1
                         }, r.push(m), n.setData({
                             joinList: r,
@@ -327,18 +339,18 @@ Page({
                 }
             },
             error: function(e) {
-                d.dataLoadin(e, "loading"), console.log(e);
+                dataLoadin(e, "loading"), console.log(e);
             }
         });
     },
     likerDetail: function(e) {
         u = new Array();
-        var t = g.Object.extend("Likes"), a = new g.Query(t);
+        var t = Object.extend("Likes"), a = new Query(t);
         a.equalTo("event", e), a.include("liker"), a.descending("createAt"), a.find({
             success: function(e) {
                 for (var t = 0; t < e.length; t++) {
                     var a, o = e[t].id, s = e[t].get("liker").objectId, i = e[t].get("liker").username, c = e[t].get("liker").userPic, r = e[t].createdAt;
-                    a = '{"id":"' + o + '","likerid":"' + s + '","likername":"' + i + '","likerpic":"' + c + '","liketime":"' + f.getDateDiff(r) + '"}';
+                    a = '{"id":"' + o + '","likerid":"' + s + '","likername":"' + i + '","likerpic":"' + c + '","liketime":"' + getDateDiff(r) + '"}';
                     var l = JSON.parse(a);
                     u.push(l), n.setData({
                         likerList: u,
@@ -347,7 +359,7 @@ Page({
                 }
             },
             error: function(e) {
-                d.dataLoadin(e, "loading"), console.log(e);
+                dataLoadin(e, "loading"), console.log(e);
             }
         });
     },
@@ -369,7 +381,7 @@ Page({
         })), wx.getStorage({
             key: "user_id",
             success: function(e) {
-                var s = g.Object.extend("Events"), i = new g.Query(s);
+                var s = Object.extend("Events"), i = new Query(s);
                 i.equalTo("objectId", a), i.find({
                     success: function(s) {
                         var i = s[0].get("liker"), c = !1;
@@ -381,12 +393,12 @@ Page({
                             0 == c && (i.push(e.data), n.upLike(e), s[0].set("likenum", s[0].get("likenum") + 1));
                         } else i.push(e.data), n.upLike(e), s[0].set("likenum", s[0].get("likenum") + 1);
                         s[0].save();
-                        var u = g.Object.extend("Plyre"), u = new g.Query(u), l = new g.User();
+                        var u = Object.extend("Plyre"), u = new Query(u), l = new User();
                         l.id = e.data, t ? (u.equalTo("uid", l), u.equalTo("wid", a), u.equalTo("behavior", 2), 
                         u.find({
                             success: function(e) {
                                 if (console.log(e), 0 == e.length) {
-                                    var t = wx.getStorageSync("my_avatar"), n = wx.getStorageSync("my_username"), s = new (g.Object.extend("Plyre"))();
+                                    var t = wx.getStorageSync("my_avatar"), n = wx.getStorageSync("my_username"), s = new (Object.extend("Plyre"))();
                                     s.set("behavior", 2), s.set("noticetype", "取消赞"), s.set("bigtype", 1), s.set("avatar", t), 
                                     s.set("username", n), s.set("uid", l), s.set("wid", a), s.set("fid", o), s.set("is_read", 0), 
                                     s.save();
@@ -395,7 +407,7 @@ Page({
                         })) : (u.equalTo("uid", l), u.equalTo("wid", a), u.equalTo("behavior", 1), u.find({
                             success: function(e) {
                                 if (console.log(e), 0 == e.length) {
-                                    var t = wx.getStorageSync("my_avatar"), n = wx.getStorageSync("my_username"), s = new (g.Object.extend("Plyre"))();
+                                    var t = wx.getStorageSync("my_avatar"), n = wx.getStorageSync("my_username"), s = new (Object.extend("Plyre"))();
                                     s.set("behavior", 1), s.set("noticetype", "点赞"), s.set("bigtype", 1), s.set("avatar", t), 
                                     s.set("username", n), s.set("uid", l), s.set("wid", a), s.set("fid", o), s.set("is_read", 0), 
                                     s.save();
@@ -411,9 +423,9 @@ Page({
         });
     },
     upLike: function(e) {
-        var t = new (g.Object.extend("Likes"))(), n = new g.User();
+        var t = new (Object.extend("Likes"))(), n = new User();
         n.id = e.data;
-        var o = new (g.Object.extend("Events"))();
+        var o = new (Object.extend("Events"))();
         o.id = a, t.set("liker", n), t.set("event", o), t.save(null, {
             success: function() {
                 console.log("写入点赞表成功");
@@ -424,11 +436,11 @@ Page({
         });
     },
     downLike: function(e) {
-        var t = new g.User();
+        var t = new User();
         t.id = e.data;
-        var n = new (g.Object.extend("Events"))();
+        var n = new (Object.extend("Events"))();
         n.id = a;
-        var o = g.Object.extend("Likes"), s = new g.Query(o);
+        var o = Object.extend("Likes"), s = new Query(o);
         s.equalTo("liker", t), s.equalTo("event", n), s.destroyAll({
             success: function() {
                 console.log("删除点赞表中的数据成功");
@@ -464,12 +476,12 @@ Page({
                     isToResponse: !0,
                     responseName: n.username
                 }), t.showCommentDialog("回复" + n.username + "："); else if ("删除" == s) {
-                    var i = g.Object.extend("Comments");
-                    new g.Query(i).get(n.id, {
+                    var i = Object.extend("Comments");
+                    new Query(i).get(n.id, {
                         success: function(e) {
                             e.destroy({
                                 success: function(e) {
-                                    d.dataLoading("删除成功", "success"), console.log("删除成功");
+                                    dataLoading("删除成功", "success"), console.log("删除成功");
                                 },
                                 error: function(e) {
                                     console.log("删除评论错误");
@@ -477,8 +489,8 @@ Page({
                             });
                         }
                     });
-                    var c = g.Object.extend("Events");
-                    new g.Query(c).get(a, {
+                    var c = Object.extend("Events");
+                    new Query(c).get(a, {
                         success: function(e) {
                             e.set("commentnum", e.get("commentnum") - 1), e.save();
                         }
@@ -497,30 +509,30 @@ Page({
             success: function(e) {
                 t.setData({
                     commentLoading: !1
-                }), new g.Query(g.User).get(e.data, {
+                }), new Query(User).get(e.data, {
                     success: function(s) {
-                        var i = new (g.Object.extend("Comments"))(), c = g.Object.extend("Events"), r = new c();
+                        var i = new (Object.extend("Comments"))(), c = Object.extend("Events"), r = new c();
                         r.id = a;
-                        var u = new g.User();
+                        var u = new User();
                         if (u.id = e.data, i.set("publisher", u), i.set("event", r), i.set("content", v), 
                         console.log("commentText=" + v), t.data.isToResponse) {
                             n = !0;
-                            var l = t.data.responseName, f = new (g.Object.extend("Comments"))();
+                            var l = t.data.responseName, f = new (Object.extend("Comments"))();
                             f.id = t.data.pid, i.set("olderUserName", l), i.set("olderComment", f);
                         }
                         i.save(null, {
                             success: function(s) {
-                                new g.Query(c).get(a, {
+                                new Query(c).get(a, {
                                     success: function(s) {
                                         s.set("commentnum", s.get("commentnum") + 1), s.save();
-                                        var i = new g.User();
+                                        var i = new User();
                                         i.id = e.data;
-                                        var c = wx.getStorageSync("my_avatar"), r = wx.getStorageSync("my_username"), u = new (g.Object.extend("Plyre"))();
+                                        var c = wx.getStorageSync("my_avatar"), r = wx.getStorageSync("my_username"), u = new (Object.extend("Plyre"))();
                                         console.log("isReply=" + n), n ? (u.set("behavior", 4), u.set("noticetype", "回复")) : (u.set("behavior", 3), 
                                         u.set("noticetype", "评论")), u.set("bigtype", 1), u.set("avatar", c), u.set("username", r), 
                                         u.set("uid", i), u.set("wid", a), u.set("fid", o), u.set("is_read", 0), u.save(null, {
                                             success: function(e) {
-                                                console.log("isReply3=" + n), n ? (d.dataLoading("回复成功", "success"), console.log("回复成功")) : (d.dataLoading("评论成功", "success"), 
+                                                console.log("isReply3=" + n), n ? (dataLoading("回复成功", "success"), console.log("回复成功")) : (dataLoading("评论成功", "success"), 
                                                 console.log("评论成功"));
                                             },
                                             error: function(e, t) {
@@ -542,7 +554,7 @@ Page({
                                 });
                             },
                             error: function(e, n) {
-                                d.dataLoading(n, "loading"), t.setData({
+                                dataLoading(n, "loading"), t.setData({
                                     publishContent: "",
                                     isToResponse: !1,
                                     responeContent: "",
@@ -639,11 +651,11 @@ Page({
                 }), wx.getStorage({
                     key: "user_id",
                     success: function(e) {
-                        var t = new g.User();
+                        var t = new User();
                         t.id = e.data;
-                        var s = new (g.Object.extend("Events"))();
+                        var s = new (Object.extend("Events"))();
                         s.id = a;
-                        var i = g.Object.extend("Contacts"), c = new g.Query(i);
+                        var i = Object.extend("Contacts"), c = new Query(i);
                         c.equalTo("currentUser", t), c.equalTo("event", s), c.destroyAll({
                             success: function() {
                                 console.log("删除联系表中的数据成功"), n.setData({
@@ -654,13 +666,13 @@ Page({
                                 console.log("删除联系表中的数据失败");
                             }
                         });
-                        var r = new g.User();
+                        var r = new User();
                         r.id = e.data;
-                        var u = wx.getStorageSync("my_avatar"), l = wx.getStorageSync("my_username"), d = new (g.Object.extend("Plyre"))();
+                        var u = wx.getStorageSync("my_avatar"), l = wx.getStorageSync("my_username"), d = new (Object.extend("Plyre"))();
                         d.set("behavior", 6), d.set("noticetype", "取消参加"), d.set("bigtype", 2), d.set("avatar", u), 
                         d.set("username", l), d.set("uid", r), d.set("wid", a), d.set("fid", o), d.set("is_read", 0), 
                         d.save();
-                        var i = g.Object.extend("Events"), f = new g.Query(i);
+                        var i = Object.extend("Events"), f = new Query(i);
                         f.equalTo("objectId", a), f.find({
                             success: function(t) {
                                 for (var n = t[0].get("joinArray"), a = 0; a < n.length; a++) if (n[a] == e.data) {
@@ -679,7 +691,7 @@ Page({
                             key: "user_openid",
                             success: function(e) {
                                 var o = e.data;
-                                g.User.logIn(t, o, {
+                                User.logIn(t, o, {
                                     success: function(e) {
                                         var t = e.get("eventJoin");
                                         if (t.length > 0) for (var o = 0; o < t.length; o++) if (t[o] == a) {
@@ -688,7 +700,7 @@ Page({
                                         }
                                         e.set("eventJoin", t), e.save(null, {
                                             success: function() {
-                                                d.dataLoading("取消参加成功", "success");
+                                                dataLoading("取消参加成功", "success");
                                             },
                                             error: function(e) {
                                                 console.log("取消参加失败");
@@ -738,12 +750,12 @@ Page({
     stuSubmit: function(e) {
         var t = n.data.statusIndex;
         if (0 == t) o = "准备中"; else if (1 == t) o = "进行中"; else if (2 == t) var o = "已结束";
-        var s = g.Object.extend("EventMore");
-        new g.Query(s).get(i, {
+        var s = Object.extend("EventMore");
+        new Query(s).get(i, {
             success: function(e) {
                 if (e.set("Status", Number(t)), e.set("Statusname", o), e.save(), "已结束" == o) {
-                    var s = g.Object.extend("Events");
-                    new g.Query(s).get(a, {
+                    var s = Object.extend("Events");
+                    new Query(s).get(a, {
                         success: function(e) {
                             e.set("isShow", 0), e.save(), console.log("撤离成功");
                         },
@@ -754,7 +766,7 @@ Page({
                 }
                 n.setData({
                     showStuDialog: !1
-                }), console.log("改变状态成功"), d.dataLoading("改变成功", "success");
+                }), console.log("改变状态成功"), dataLoading("改变成功", "success");
             },
             error: function(e, t) {
                 console.log("改变状态失败" + t);
@@ -778,11 +790,11 @@ Page({
         }) : "微信号" != i || u.test(r) ? "手机号" != i || f.test(r) ? "QQ号" != i || l.test(r) ? (wx.getStorage({
             key: "user_id",
             success: function(e) {
-                var t = new (g.Object.extend("Contacts"))(), s = new (g.Object.extend("Events"))();
+                var t = new (Object.extend("Contacts"))(), s = new (Object.extend("Events"))();
                 s.id = a;
-                var u = new g.User();
+                var u = new User();
                 u.id = e.data;
-                var l = new g.User();
+                var l = new User();
                 l.id = o, t.set("publisher", l), t.set("currentUser", u), t.set("event", s), t.set("realname", c), 
                 t.set("contactWay", i), t.set("contactValue", r), console.log(t), t.save(null, {
                     success: function() {
@@ -798,13 +810,13 @@ Page({
                         console.log(e);
                     }
                 });
-                var d = new g.User();
+                var d = new User();
                 d.id = e.data;
-                var f = wx.getStorageSync("my_avatar"), v = wx.getStorageSync("my_username"), m = new (g.Object.extend("Plyre"))();
+                var f = wx.getStorageSync("my_avatar"), v = wx.getStorageSync("my_username"), m = new (Object.extend("Plyre"))();
                 m.set("behavior", 5), m.set("noticetype", "参加活动"), m.set("bigtype", 2), m.set("avatar", f), 
                 m.set("username", v), m.set("uid", d), m.set("wid", a), m.set("fid", o), console.log("fid=" + o), 
                 m.set("is_read", 0), m.save();
-                var p = g.Object.extend("Events"), h = new g.Query(p);
+                var p = Object.extend("Events"), h = new Query(p);
                 h.equalTo("objectId", a), h.find({
                     success: function(t) {
                         t[0].get("joinArray").push(e.data), t[0].set("joinnumber", t[0].get("joinnumber") + 1), 
@@ -841,10 +853,10 @@ Page({
                     },
                     emphasis_keyword: ""
                 };
-                g.sendMessage(f).then(function(e) {
+                sendMessage(f).then(function(e) {
                     console.log("发送成功");
                 }, function(e) {
-                    d.showTip("失败" + e);
+                    showTip("失败" + e);
                 });
             }
         }), wx.getStorage({
@@ -855,7 +867,7 @@ Page({
                     key: "user_openid",
                     success: function(e) {
                         var o = e.data;
-                        g.User.logIn(t, o, {
+                        User.logIn(t, o, {
                             success: function(e) {
                                 var t = e.get("eventJoin"), o = !1;
                                 if (null == t && (t = []), t.length > 0) {
@@ -867,7 +879,7 @@ Page({
                                 } else t.push(a);
                                 e.set("eventJoin", t), e.save(null, {
                                     success: function() {
-                                        0 == o ? d.dataLoading("参加成功", "success") : 1 == o && d.dataLoading("取消参加成功", "success");
+                                        0 == o ? dataLoading("参加成功", "success") : 1 == o && dataLoading("取消参加成功", "success");
                                     },
                                     error: function(e) {
                                         console.log("参加失败");
@@ -907,17 +919,17 @@ Page({
             showTopTips: !0,
             TopTips: "请输入联系方式"
         }); else if ("微信号" != i || u.test(r)) if ("手机号" != i || f.test(r)) if ("QQ号" != i || l.test(r)) {
-            g.Object.extend("Contacts");
-            new g.Query("Contacts").get(s, {
+            Object.extend("Contacts");
+            new Query("Contacts").get(s, {
                 success: function(e) {
                     e.set("realname", c), e.set("contactWay", i), e.set("contactValue", r), e.save({
                         success: function() {
-                            var e = new g.User();
+                            var e = new User();
                             e.id = wx.getStorageSync("user_id");
-                            var t = wx.getStorageSync("my_avatar"), n = wx.getStorageSync("my_username"), s = new (g.Object.extend("Plyre"))();
+                            var t = wx.getStorageSync("my_avatar"), n = wx.getStorageSync("my_username"), s = new (Object.extend("Plyre"))();
                             s.set("behavior", 7), s.set("noticetype", "修改信息"), s.set("bigtype", 1), s.set("avatar", t), 
                             s.set("username", n), s.set("uid", e), s.set("wid", a), s.set("fid", o), console.log("fid=" + o), 
-                            s.set("is_read", 0), s.save(), console.log("修改成功"), d.dataLoading("修改成功", "success");
+                            s.set("is_read", 0), s.save(), console.log("修改成功"), dataLoading("修改成功", "success");
                         },
                         error: function(e) {
                             console.log("修改失败");
@@ -949,7 +961,7 @@ Page({
     click_favo: function(e) {
         var t = n.data.favo;
         if ("3" == t) {
-            var o = g.Object.extend("Events"), s = new g.Query(o);
+            var o = Object.extend("Events"), s = new Query(o);
             if (2 != n.data.actstatus && 1 == n.data.isShow) wx.showModal({
                 title: "是否撤离首页?",
                 content: "撤离后您的发起将不会在首页展示",
@@ -957,7 +969,7 @@ Page({
                 success: function(e) {
                     e.confirm && (s.get(a, {
                         success: function(e) {
-                            e.set("isShow", 0), e.save(), console.log("撤离成功"), d.dataLoading("撤离成功", "success");
+                            e.set("isShow", 0), e.save(), console.log("撤离成功"), dataLoading("撤离成功", "success");
                         },
                         error: function(e, t) {
                             console.log("撤离失败" + t);
@@ -971,7 +983,7 @@ Page({
                 success: function(e) {
                     e.confirm && (s.get(a, {
                         success: function(e) {
-                            e.set("isShow", 1), e.save(), console.log("公开成功"), d.dataLoading("公开成功", "success");
+                            e.set("isShow", 1), e.save(), console.log("公开成功"), dataLoading("公开成功", "success");
                         },
                         error: function(e, t) {
                             console.log("公开失败" + t);
@@ -995,7 +1007,7 @@ Page({
                     key: "user_openid",
                     success: function(e) {
                         var o = e.data;
-                        g.User.logIn(t, o, {
+                        User.logIn(t, o, {
                             success: function(e) {
                                 var t = wx.getStorageSync("user_id"), o = e.get("eventFavo"), s = !1;
                                 if (null == o && (o = []), o.length > 0) {
@@ -1007,7 +1019,7 @@ Page({
                                 } else o.push(a), n.upFavo(t);
                                 e.set("eventFavo", o), e.save(null, {
                                     success: function() {
-                                        0 == s ? d.dataLoading("收藏成功", "success") : 1 == s && d.dataLoading("取消收藏成功", "success");
+                                        0 == s ? dataLoading("收藏成功", "success") : 1 == s && dataLoading("取消收藏成功", "success");
                                     },
                                     error: function(e) {
                                         console.log("失败");
@@ -1021,9 +1033,9 @@ Page({
         });
     },
     upFavo: function(e) {
-        var t = new (g.Object.extend("Favos"))(), n = new g.User();
+        var t = new (Object.extend("Favos"))(), n = new User();
         n.id = e;
-        var o = new (g.Object.extend("Events"))();
+        var o = new (Object.extend("Events"))();
         o.id = a, t.set("favor", n), t.set("event", o), t.save(null, {
             success: function() {
                 console.log("写入收藏表成功");
@@ -1034,11 +1046,11 @@ Page({
         });
     },
     downFavo: function(e) {
-        var t = new g.User();
+        var t = new User();
         t.id = e;
-        var n = new (g.Object.extend("Events"))();
+        var n = new (Object.extend("Events"))();
         n.id = a;
-        var o = g.Object.extend("Favos"), s = new g.Query(o);
+        var o = Object.extend("Favos"), s = new Query(o);
         s.equalTo("favor", t), s.equalTo("event", n), s.destroyAll({
             success: function() {
                 console.log("删除收藏表中的数据成功");
@@ -1057,12 +1069,12 @@ Page({
             cancelColor: "#646464",
             success: function(e) {
                 if (e.confirm) {
-                    var t = g.Object.extend("Events");
-                    new g.Query(t).get(a, {
+                    var t = Object.extend("Events");
+                    new Query(t).get(a, {
                         success: function(e) {
                             e.destroy({
                                 success: function(e) {
-                                    d.dataLoading("删除成功", "success", function() {
+                                    dataLoading("删除成功", "success", function() {
                                         wx.navigateBack({
                                             delta: 1
                                         });
@@ -1085,7 +1097,7 @@ Page({
         var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : "bottomRight";
         this.setData({
             opened: !1
-        }), this.button = l.$wuxButton.init("br", {
+        }), this.button = $wuxButton.init("br", {
             position: e,
             buttons: [ {
                 label: "群二维码",

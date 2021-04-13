@@ -3,7 +3,7 @@ function e(e) {
     return "微信号" == e ? t = 0 : "QQ号" == e ? t = 1 : "手机号" == e && (t = 2), t;
 }
 
-function t(e) {
+function t(e) {//xiugaiceshi
     var t = "";
     return 1 == e ? t = "运动" : 2 == e ? t = "游戏" : 3 == e ? t = "交友" : 4 == e ? t = "旅行" : 5 == e ? t = "读书" : 6 == e ? t = "竞赛" : 7 == e ? t = "电影" : 8 == e ? t = "音乐" : 9 == e && (t = "其他"), 
     t;

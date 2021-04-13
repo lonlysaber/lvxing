@@ -11,6 +11,7 @@ Page({
             url: "/pages/index/index"
         });
     },
+    // 54654
     onLoad: function() {},
     onShow: function() {
         console.log("onLoad");

@@ -1,0 +1,18 @@
+/* pages/search/search.wxss */
+@import '../../templates/foodList/foodList.wxss';
+page{
+    background: #f5f5f5;
+}
+.header{
+    background: #fff;
+    padding: 20rpx;
+}
+.header input{
+    height: 60rpx;
+    line-height: 60rpx;
+    background: #e7e7e7;
+    border-radius: 20rpx;
+    padding-left: 20rpx;
+    font-size: 28rpx;
+    /* color: #acacac; */
+}

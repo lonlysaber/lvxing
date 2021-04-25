@@ -1,0 +1,10 @@
+<!-- 标题 -->
+<view class="title">{{detail.title}}</view>
+
+<!-- 图片 -->
+<image src='{{detail.image}}'></image>
+
+<!-- 信息 -->
+<view>
+    {{detail.detail}}
+</view>

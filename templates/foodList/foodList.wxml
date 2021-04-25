@@ -1,0 +1,18 @@
+<!-- 食疗坊列表模板 -->
+<template name="foodList">
+    <navigator url='../shopDetail/shopDetail?mark={{item.id}}'>
+        <view class='shop-info'>
+            <view class='shop-img'>
+                <image src='{{item.pic }}'></image>
+            </view>
+            <view class='shop-text'>
+                <view class='title'>{{ item.name }}</view>
+                <view class='detail'>{{ item.description }}</view>
+                <view class='other'>
+                    <view class='money'>￥{{ item.price }}</view>
+                    <view class='num'>{{ item.buynum }}人付款</view>
+                </view>
+            </view>
+        </view>
+    </navigator>
+</template>

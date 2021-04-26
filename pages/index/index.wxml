@@ -1,24 +1,36 @@
 <!-- 轮播图 -->
 <view class="banner">
-    <swiper class=".container" autoplay="true" interval="2000" circular="true" bindchange="swiperChange">
-        <swiper-item wx:for="{{bannerArray}}" wx:key="index">
-            <image src="{{item.image}}"></image>
-            <view class="desc">{{item.title}}</view>
+    <swiper autoplay="true" interval="2000" circular="true" bindchange="swiperChange">
+        <swiper-item>
+            <image src="../../images/首页图片 (1).jpeg"></image>
+            <view class="desc"></view>
+        </swiper-item>
+        <swiper-item>
+            <image src="../../images/首页图片 (2).jpeg"></image>
+            <view class="desc"></view>
+        </swiper-item>
+        <swiper-item>
+            <image src="../../images/首页图片 (3).jpeg"></image>
+            <view class="desc"></view>
+        </swiper-item>
+        <swiper-item>
+            <image src="../../images/首页图片 (4).jpeg"></image>
+            <view class="desc"></view>
         </swiper-item>
     </swiper>
-    <view class="num">{{num}}/{{bannerArray.length}}</view>
+    <view class="num"></view>
 </view>
 
 
-<!-- 2.每日一测 -->
+<!-- 2.每日一游 -->
 <view class="content">
     <view class="item">
-        <image src='../../images/info_left.jpg'></image>
-        <view>每日一测</view>
+        <image src='../../images/每日一游.jpg'></image>
+        <view>每日一游</view>
     </view>
     <view class="item">
-        <image src='../../images/info_right.jpg'></image>
-        <view>每日食谱</view>
+        <image src='../../images/今日出行.jpeg'></image>
+        <view>每日出行</view>
     </view>
 </view>
 
@@ -38,15 +50,3 @@
 </navigator>
 </view> -->
 
-<!-- api跳转 -->
-<view class="list" wx:for="{{listArray}}" wx:key="index"
-bindtap="toDetail" data-id="{{item.id}}" >
-    <view class="title">{{item.title}}</view>
-    <view class="wrapper">
-        <image src='{{item.image}}'></image>
-        <view class="info">
-            <view class="desc">{{item.desc}}</view>
-            <view class='readyNum'><text>{{item.readNum}}</text>阅读</view>
-        </view>
-    </view>
-</view>

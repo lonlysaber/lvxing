@@ -1,0 +1,44 @@
+<!--index.wxml-->
+<view bindtap="handlerPageTap" bindtouchcancel="handlerCancel" bindtouchend="handlerEnd" bindtouchstart="handlerStart" catchtouchmove="handlerMove" class="mpage {{!ui.tStart?'withAnimate':''}}" style="left:{{ui.offsetLeft}}px;width: {{ui.windowWidth}}px;">
+    <scroll-view scrollY bindscroll="" style="height: 100%;">
+        <view class="search">
+            <view catchtap="handlerAvatarTap" class="avatar">
+                <image src=""></image>
+            </view>
+            <view class="search-wrapper {{show_search_back?'search-wrapper-blue':''}}">
+                <view bindtap="click_search" class="search-button">
+                    <view class="iconfont icon-sousuo"></view>
+          搜索活动
+        </view>
+            </view>
+            <view bindtap="gotoMap" class="avatar_r">
+                <image src=""></image>
+            </view>
+        </view>
+        <swiper autoplay="{{autoplay}}" bindchange="onSwiperChange" current="{{curIndex}}" duration="300" interval="5000" style="overflow: visible;">
+            <swiper-item style="overflow: visible;" wx:for="{{postsShowSwiperList}}" wx:key="actpic">
+                <image bindtap="click_activity" data-actid="" data-pubid="" mode="aspectFill" src="" style="width: 100%; height: 300rpx; background: #fff; box-shadow: 0 10rpx 15rpx rgba(0, 0, 0, .1); -webkit-transform: scale({{curIndex==index?0.9:0.65}}) translate({{curIndex==index-1||curIndex==index+1?(curIndex-index)*30:0}}%, 0); -webkit-transition: .3s; position: relative;"></image>
+                <view class="horizontal">
+                    <view class="tag recommend">最热活动</view>
+                    <text class="title">{{item.title}}</text>
+                </view>
+            </swiper-item>
+        </swiper>
+        <view class="activities">
+            <view class="subtitle">
+                <image mode="aspectFit" src=""></image>
+                <text>最新活动</text>
+                <space></space>
+                <button bindtap="refresh">点击刷新</button>
+            </view>
+            
+        </view>
+        <view class="loadingmore">
+            <view wx:if="{{!isEmpty}}">
+                <button bindtap="loadMore" class="more-button" formType="submit" size="mini">点击加载更多..</button>
+            </view>
+            <view class="no-more" wx:if="{{isEmpty}}">---无更多活动---</view>
+        </view>
+        <tab-shadow></tab-shadow>
+    </scroll-view>
+</view>

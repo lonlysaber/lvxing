@@ -1,15 +1,14 @@
 {
     "pages": [
         "pages/index/index",
-        "pages/food/food",
-        "pages/cart/cart",
-        "pages/about/about",
-        "pages/indexDetail/indexDetail",
-        "pages/search/search"
+        "pages/detal/detal",
+        "pages/activity/activity",
+        "pages/about/about"
+        
     ],
     "window": {
-        "navigationBarBackgroundColor": "#43bf92",
-        "navigationBarTitleText": "养身堂",
+        "navigationBarBackgroundColor": "#898ff2",
+        "navigationBarTitleText": "侣行",
         "navigationBarTextStyle": "white"
     },
     "tabBar": {
@@ -23,20 +22,20 @@
                 "selectedIconPath": "images/tab5.png"
             },
             {
-                "pagePath": "pages/food/food",
-                "text": "食疗坊",
+                "pagePath": "pages/detal/detal",
+                "text": "详细信息",
                 "iconPath": "images/tab2.png",
                 "selectedIconPath": "images/tab6.png"
             },
             {
-                "pagePath": "pages/cart/cart",
-                "text": "购物车",
-                "iconPath": "images/tab9.png",
-                "selectedIconPath": "images/tab10.png"
+                "pagePath": "pages/activity/activity",
+                "text": "发起活动",
+                "iconPath": "images/tab3.png",
+                "selectedIconPath": "images/tab7.png"
             },
             {
                 "pagePath": "pages/about/about",
-                "text": "我的",
+                "text": "我的消息",
                 "iconPath": "images/tab4.png",
                 "selectedIconPath": "images/tab8.png"
             }

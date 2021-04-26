@@ -5,7 +5,7 @@
             <view class="mod t-name">
                 <text class="key">活动名称</text>
                 <input class="input" maxlength="100" name="title" placeholder="例：求小伙伴一起去西藏旅行" value="{{title}}"></input>
-                <image class="arrow-r" src="/static/images/arrow-r-0.png"></image>
+                <image class="arrow-r" src=""></image>
             </view>
         </view>
         <view class="mod-a mt20">
@@ -13,20 +13,20 @@
                 <text class="key">活动类别</text>
                 <picker bindchange="bindTypeChange" range="{{types}}" value="{{typeIndex}}">
                     <view class="value" name="types">{{types[typeIndex]}}
-            <image class="arrow-r" src="/static/images/arrow-r-0.png"></image>
+            <image class="arrow-r" src=""></image>
                     </view>
                 </picker>
             </view>
             <view bindtap="chooseLocation" class="mod t-address">
                 <text class="key">活动地点</text>
                 <text bindtap="addressChange" class="value" name="address" value="{{address}}">{{address}}</text>
-                <image class="arrow-r" src="/static/images/arrow-r-0.png"></image>
+                <image class="arrow-r" src=""></image>
             </view>
             <view class="mod t-sign-time">
                 <text class="key">有效时间</text>
                 <picker bindchange="bindDateChange" end="2020-09-01" mode="date" start="{{date}}" value="{{date}}">
                     <view class="value" name="endtime">{{date}}
-            <image class="arrow-r" src="/static/images/arrow-r-0.png"></image>
+            <image class="arrow-r" src=""></image>
                     </view>
                 </picker>
             </view>
@@ -38,7 +38,7 @@
                 <view class="mod t-name">
                     <text class="key">人数设置</text>
                     <input class="input" maxlength="100" name="peoplenum" placeholder="请输入人数" type="number" value="{{peoplenum}}"></input>
-                    <image class="arrow-r" src="/static/images/arrow-r-0.png"></image>
+                    <image class="arrow-r" src=""></image>
                 </view>
             </view>
         </view>
@@ -53,7 +53,7 @@
         </view>
         <view class="image_box" wx:if="{{isSrc}}">
             <view class="picPre">
-                <image mode="aspectFit" src="{{src}}"></image>
+                <image mode="aspectFit" src=""></image>
                 <view bindtap="clearPic"></view>
             </view>
         </view>
@@ -62,7 +62,7 @@
             <view class="mod t-name">
                 <text class="key">真实姓名</text>
                 <input class="input" maxlength="100" name="realname" placeholder="请输入真实姓名" value="{{realname}}"></input>
-                <image class="arrow-r" src="/static/images/arrow-r-0.png"></image>
+                <image class="arrow-r" src=""></image>
             </view>
             <view class="mod-a"></view>
             <view class="mod t-name">
@@ -70,14 +70,14 @@
                     <view class="select">{{accounts[accountIndex]}}</view>
                 </picker>
                 <input class="input" name="contactValue" placeholder="请输入号码" value="{{contactValue}}"></input>
-                <image class="arrow-r" src="/static/images/arrow-r-0.png"></image>
+                <image class="arrow-r" src=""></image>
             </view>
             <view bindtap="uploadCodePic" class="add_pic t-code" wx:if="{{!isCodeSrc}}">
                 <view class="code">上传活动群二维码（选）</view>
             </view>
             <view class="image_box" wx:if="{{isCodeSrc}}">
                 <view class="picPre">
-                    <image mode="aspectFit" src="{{codeSrc}}"></image>
+                    <image mode="aspectFit" src=""></image>
                     <view bindtap="clearCodePic"></view>
                 </view>
             </view>
@@ -106,7 +106,7 @@
     <view class="box">
         <view class="box-hd">
             <text class="box-title">发起须知</text>
-            <image bindtap="hideNotice" class="box-close" src="/static/images/more/close.png"></image>
+            <image bindtap="hideNotice" class="box-close" src=""></image>
         </view>
         <view class="box-bd">
             <view class="notice-q">1、为什么需要填写真实姓名与联系方式等信息？</view>
